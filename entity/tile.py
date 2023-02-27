@@ -7,8 +7,10 @@ from util.constants import *
 
 
 class TileType(Enum):
+    """tile_name = (x, y, x_offset, y_offset)"""
     BLACK_8x8 = (0, 0, TILE_SIZE_SMALL, TILE_SIZE_SMALL)
     GRASS_8x8 = (TILE_SIZE_SMALL, 0, TILE_SIZE_SMALL, TILE_SIZE_SMALL)
+    GRASS_16x16 = (TILE_SIZE_SMALL, 0, TILE_SIZE_SMALL, TILE_SIZE_SMALL)
     GRASS_32x32 = (12*TILE_SIZE_SMALL, 20*TILE_SIZE_SMALL,
                    TILE_SIZE_LARGE, TILE_SIZE_LARGE)
     GRASS_FLOWER_8x8 = (2*TILE_SIZE_SMALL, 0, TILE_SIZE_SMALL, TILE_SIZE_SMALL)

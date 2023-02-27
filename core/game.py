@@ -5,6 +5,7 @@ from pygame.math import Vector2
 
 from entity.ball import Ball
 from entity.tile import Tile, TileType
+from core.grid import Grid
 from util.constants import *
 from util.spritesheet import SpriteSheet
 
@@ -23,13 +24,7 @@ class Game:
         # Create background
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
-        # Draw tiles
-        self.tiles = pygame.sprite.Group()
-        for y in range(0, 600, TILE_SIZE_LARGE):
-            for x in range(0, 800, TILE_SIZE_LARGE):
-                tile = Tile(x, y, TileType.GRASS_32x32, SS)
-                self.tiles.add(tile)
-                self.background.blit(tile.image, tile.rect)
+        grid = Grid(SS, self.background)
 
         # Create game objects
         self.balls = pygame.sprite.Group()
@@ -69,7 +64,7 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
+                if event.button == 3:
                     for b in self.balls.sprites():
                         b.moveto(event.pos)
 
