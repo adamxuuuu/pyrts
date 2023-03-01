@@ -1,21 +1,20 @@
 from typing import List, Sequence, Tuple, Union, overload
 
 from pygame.sprite import Sprite
-from pygame.display import get_surface
 from pygame.math import Vector2
 import math
 
 from util.loader import load_png
 
 
-class Ball(Sprite):
+class Dummy(Sprite):
     def __init__(self, x, y):
         Sprite.__init__(self)
         self.image, self.rect = load_png('gameobjects/Ice.png')
-        screen = get_surface()
-        self.area = screen.get_rect()
+        # screen = get_surface()
+        # self.area = screen.get_rect()
         self.dest = Vector2(x, y)
-        self.rect.centerx, self.rect.centery = x, y
+        self.rect.center = (x, y)
         self.speed = 0.3  # pix per milis
 
     def update(self, dt):

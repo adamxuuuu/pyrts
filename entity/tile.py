@@ -18,21 +18,12 @@ class TileType(Enum):
 
 
 class Tile(Sprite):
+
     def __init__(self, x, y, tt: TileType, ss: SpriteSheet):
         Sprite.__init__(self)
-        self.xx = 3
-        self.yy = 6
         self.image = ss.image_at(tt.value)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-
-    # def __init__(self, x, y):
-    #     Sprite.__init__(self)
-    #     self.xx = 3
-    #     self.yy = 6
-    #     self.image = SS.image_at((0, 0, 32, 32))
-    #     self.rect = self.image.get_rect()
-    #     self.rect.center = (x, y)
 
 
 def test():

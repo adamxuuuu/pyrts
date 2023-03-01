@@ -2,8 +2,8 @@ import random
 import pygame
 from pygame.locals import *
 
-from entity.ball import Ball
-from core.grid import Grid
+from entity.dummy import Dummy
+from core.gameworld import GameWorld
 from util.constants import *
 
 
@@ -12,12 +12,12 @@ class Game:
     def __init__(self):
         # Set up the game window
         pygame.init()
-        self.grid = Grid()
+        self.gameworld = GameWorld()
 
         # Create game objects
         self.balls = pygame.sprite.Group()
-        for _ in range(100):
-            _b = Ball(random.randrange(10, 790), random.randrange(10, 590))
+        for _ in range(10):
+            _b = Dummy(random.randrange(10, 790), random.randrange(10, 590))
             self.balls.add(_b)
 
         # Set up the clock
@@ -56,5 +56,5 @@ class Game:
         self.balls.update(self.dt)
 
     def __render__(self):
-        self.grid.draw(self.balls)
+        self.gameworld.draw(self.balls)
         pygame.display.flip()
