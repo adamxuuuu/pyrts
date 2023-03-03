@@ -7,13 +7,9 @@ import pygame
 
 class GameWorld():
 
-    def __init__(self):
+    def __init__(self) -> None:
 
         self._gui = _GUI()
-
-        # Load spritesheet
-        self.ss = SpriteSheet(
-            "sprites/environment/MASGrassLand/Dawnbringer-16/MAS-Tileset-DB.png")
 
         self.grid = {}
         self.tiles = pygame.sprite.Group()
@@ -27,14 +23,13 @@ class GameWorld():
         # Blit everything to the screen
         self._gui.background.blits([(spr.image, spr.rect)
                                     for spr in self.tiles.sprites()])
-        self._gui.screen.blit(self._gui.background, (0, 0))
-        pygame.display.flip()
+        self._gui.draw()
 
-    def draw(self, gos):
+    def draw(self, gos: pygame.sprite.Group):
         gos.clear(self._gui.screen, self._gui.background)
         gos.draw(self._gui.screen)
 
-    def get_coord(self, x, y) -> list:
+    def get_coord(self, x, y):
         return self.grid.get((x, y))
 
     def set_coord(self, x, y, obj):
@@ -44,11 +39,14 @@ class GameWorld():
 
 class _GUI():
 
-    def __init__(self):
-        # Create screen
-        self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption('RTS Game')
+    SCREEN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption('RTS Game')
 
+    def __init__(self):
         # Create background
-        self.background = pygame.Surface(self.screen.get_size())
+        self.background = pygame.Surface(self.SCREEN.get_size())
         self.background = self.background.convert()
+
+    def draw(self):
+        self.SCREEN.blit(self.background, (0, 0))
+        pygame.display.flip()

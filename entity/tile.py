@@ -1,4 +1,3 @@
-import pygame
 from enum import Enum
 from pygame.sprite import Sprite
 
@@ -16,58 +15,14 @@ class TileType(Enum):
     GRASS_FLOWER_8x8 = (2*TILE_SIZE_SMALL, 0, TILE_SIZE_SMALL, TILE_SIZE_SMALL)
     WATER = (0, TILE_SIZE_SMALL, TILE_SIZE_SMALL, TILE_SIZE_SMALL)
 
-
 class Tile(Sprite):
 
-    def __init__(self, x, y, tt: TileType, ss: SpriteSheet):
+    # Load spritesheet
+    SS: SpriteSheet = SpriteSheet(
+        "sprites/environment/MASGrassLand/Dawnbringer-16/MAS-Tileset-DB.png")
+
+    def __init__(self, x, y, tt: TileType):
         Sprite.__init__(self)
-        self.image = ss.image_at(tt.value)
+        self.image = self.SS.image_at(tt.value)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-
-
-def test():
-    pygame.init()
-    screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('Tile Demo')
-
-    # Create background
-    background = pygame.Surface(screen.get_size())
-    background = background.convert()
-
-    tiles = pygame.sprite.Group()
-    tt = TileType.GRASS_32x32
-    for y in range(0, 600, tt.value[3]):
-        for x in range(0, 800, tt.value[2]):
-            tile = Tile(x, y, tt)
-            tiles.add(tile)
-            background.blit(tile.image, tile.rect)
-
-    clock = pygame.time.Clock()
-    # game loop
-    running = True
-    while running:
-
-        # check for events (keyboard, mouse, etc.)
-        for event in pygame.event.get():
-
-            # check if the user closed the window
-            if event.type == pygame.QUIT:
-
-                # if so, end the game loop
-                running = False
-
-        # update all game logic here
-
-        # draw/render
-        # Blit everything to the screen
-        screen.blit(background, (0, 0))
-
-        # after drawing everything, flip the display
-        pygame.display.flip()
-
-        # run at 60 fps
-        clock.tick(60)
-
-    # quit pygame and close the window when done
-    pygame.quit()
